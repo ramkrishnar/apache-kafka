@@ -1,0 +1,57 @@
+kafka is distrtibuted system running cluster of computers.
+producer:
+--------   producer send message to kafka.
+
+consumer:
+-------- reads the data from kafka server
+
+broker:
+------ it is a kafka server mediater b/w producer and consumer
+
+cluster:
+--------  group of computers sharing work load for common purpose.
+
+topic:
+-----  it is unique name for kafka stream.
+
+when huge data topic divided into partitions and each partition in on machine
+a sequence id given to arrive partition i.e offset.
+global unique identifier number is topic->partition->offset.
+total no.of consumer groups=no.of partition in a topic.
+each consumer have one partition other wise double time reading.
+
+download :
+---------   wget "http://mirrors.fibergrid.in/apache/kafka/2.0.0/kafka_2.11-2.0.0.tgz "
+
+unzip file: tar -xzf kafka_2.11-2.0.0.tgz
+
+zookeper came out from a hadoop provide cooridinate service to distributed system
+
+start zookeper:
+-------------- bin/zookeeper-server-start.sh config/zookeeper.properties
+ start kafka server:
+ ------------------- bin/kafka-server-start.sh config/server.properties
+ create topic:
+ -------------- bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic mytopic1 --partitions 2 --replication-factor 1
+  create producer console:
+  -------------- bin/kafka-console-producer.sh --broker-list localhost:9092 --topic mytopic1;
+  create consumer console:
+  ------------------------  bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mytopic1
+  
+  
+  fault tolerance:
+  ---------------  enable system operating continous in the event failure of some of component
+  
+  
+  create multiple brokers in single machine :
+  -------------------------------------------cp config/server.properties config/server-1.properties  create and copy the file
+  and following changes
+  borker.id=1
+  port no=9093 (remove comment)
+ change log dir=dir/log-1;
+ 
+ 
+ 
+ describe topic:
+ --------------  bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic mytopic1
+  
